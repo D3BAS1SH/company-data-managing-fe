@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Image from "next/image"
 
 interface Company {
   _id: string
@@ -38,10 +39,14 @@ export function CompanyCard({ company }: CompanyCardProps) {
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center overflow-hidden">
               {company.logo ? (
-                <img
+                <Image
                   src={company.logo || "/placeholder.svg"}
                   alt={`${company.name} logo`}
+                  width={48}
+                  height={48}
                   className="w-full h-full object-cover"
+                  style={{ objectFit: "cover" }}
+                  priority={true}
                 />
               ) : (
                 <Building2 className="h-6 w-6 text-muted-foreground" />
