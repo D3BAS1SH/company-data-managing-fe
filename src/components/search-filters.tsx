@@ -24,7 +24,7 @@ export function SearchFilters() {
 
     Object.entries(filters).forEach(([key, value]) => {
       if (value && value !== "" && !(Array.isArray(value) && value[0] === 0)) {
-        if (key === "employees") {
+        if (key === "employees" && Array.isArray(value)) {
           searchParams.set(key, value[0].toString())
         } else {
           searchParams.set(key, value.toString())
