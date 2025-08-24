@@ -1,19 +1,20 @@
+
 import { CompanyDetails } from "@/components/company-details"
 import { Navbar } from "@/components/navbar"
 
-interface CompanyPageProps {
-  params: {
-    id: string
-  }
-}
 
-export default function CompanyPage({ params }: CompanyPageProps) {
+export default async function CompanyPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="container mx-auto px-4 py-8">
-        <CompanyDetails companyId={params.id} />
+        <CompanyDetails companyId={id} />
       </main>
     </div>
-  )
+  );
 }
+
+
+
+// ...existing code...
