@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import { Building2, MapPin, Users, Calendar, Globe, Mail, Phone, DollarSign, Trash2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -110,10 +111,14 @@ export function CompanyDetails({ companyId }: CompanyDetailsProps) {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center overflow-hidden">
                 {company.logo ? (
-                  <img
+                  <Image
                     src={company.logo || "/placeholder.svg"}
                     alt={`${company.name} logo`}
+                    width={64}
+                    height={64}
                     className="w-full h-full object-cover"
+                    style={{ objectFit: "cover" }}
+                    priority={true}
                   />
                 ) : (
                   <Building2 className="h-8 w-8 text-muted-foreground" />
