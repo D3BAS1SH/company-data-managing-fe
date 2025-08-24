@@ -1,6 +1,7 @@
 import { SearchResults } from "@/components/search-results"
 import { SearchFilters } from "@/components/search-filters"
 import { Navbar } from "@/components/navbar"
+import { Suspense } from "react"
 
 export default function SearchPage() {
   return (
@@ -16,7 +17,9 @@ export default function SearchPage() {
             <SearchFilters />
           </aside>
           <div className="flex-1">
-            <SearchResults />
+            <Suspense fallback={<div>Loading results...</div>}>
+              <SearchResults />
+            </Suspense>
           </div>
         </div>
       </main>
