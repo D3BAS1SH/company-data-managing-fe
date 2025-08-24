@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useSearchParams } from "next/navigation"
 import { CompanyCard } from "@/components/company-card"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -28,11 +28,7 @@ export function SearchResults() {
   const [loading, setLoading] = useState(true)
   const searchParams = useSearchParams()
 
-  useEffect(() => {
-    fetchSearchResults()
-  }, [searchParams])
-
-  const fetchSearchResults = async () => {
+  const fetchSearchResults = useCallback(async () => {
     setLoading(true)
     try {
       const queryString = searchParams.toString()
@@ -45,7 +41,12 @@ export function SearchResults() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchParams])
+
+  useEffect(() => {
+    fetchSearchResults()
+  }, [searchParams, fetchSearchResults])
+
 
   if (loading) {
     return (

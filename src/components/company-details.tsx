@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Image from "next/image"
 import { Building2, MapPin, Users, Calendar, Globe, Mail, Phone, DollarSign, Trash2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -37,11 +37,7 @@ export function CompanyDetails({ companyId }: CompanyDetailsProps) {
   const [deleting, setDeleting] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    fetchCompany()
-  }, [companyId])
-
-  const fetchCompany = async () => {
+  const fetchCompany = useCallback(async () => {
     try {
       // Replace with your actual API endpoint
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/${companyId}`)
@@ -52,7 +48,12 @@ export function CompanyDetails({ companyId }: CompanyDetailsProps) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [companyId])
+
+  useEffect(() => {
+    fetchCompany()
+  }, [companyId, fetchCompany])
+
 
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this company? This action cannot be undone.")) {
@@ -97,7 +98,7 @@ export function CompanyDetails({ companyId }: CompanyDetailsProps) {
     return (
       <div className="text-center py-12">
         <h3 className="text-lg font-semibold text-foreground mb-2">Company not found</h3>
-        <p className="text-muted-foreground">The company you're looking for doesn't exist.</p>
+  <p className="text-muted-foreground">The company you&apos;re looking for doesn&apos;t exist.</p>
       </div>
     )
   }
